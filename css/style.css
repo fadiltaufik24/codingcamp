@@ -1,0 +1,345 @@
+/* ============================================================
+   Life Dashboard — css/style.css
+   Tasks 9.1–9.4: Base styles, grid layout, responsive, widgets
+   ============================================================ */
+
+/* ────────────────────────────────────────────────────────────
+   9.1  CSS Custom Properties (light mode defaults)
+   Requirements: 5.4, 5.5, 7.3, 7.4
+   ──────────────────────────────────────────────────────────── */
+:root {
+  --bg: #ffffff;
+  --surface: #f5f5f5;
+  --text: #1a1a1a;
+  --accent: #4f8ef7;
+  --border: #e0e0e0;
+  --error: #d32f2f;
+  --warning-color: #e65100;
+  --done-text: #757575;
+}
+
+/* Dark-mode overrides — toggled by ThemeManager via data-theme="dark" on <html> */
+[data-theme="dark"] {
+  --bg: #1a1a2e;
+  --surface: #16213e;
+  --text: #e0e0e0;
+  --accent: #7eb8f7;
+  --border: #2a2a4a;
+  --error: #ef5350;
+  --warning-color: #ffb74d;
+  --done-text: #9e9e9e;
+}
+
+/* ────────────────────────────────────────────────────────────
+   9.1  Base typography & box-model reset
+   ──────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  margin: 0;
+  padding: 1rem;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+h1, h2, h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin: 0 0 0.5rem;
+}
+
+/* ────────────────────────────────────────────────────────────
+   9.2  Page-level layout
+   Requirements: 5.1
+   ──────────────────────────────────────────────────────────── */
+header {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+main {
+  display: grid;
+  grid-template-areas:
+    "timer links"
+    "todo  todo";
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+#focus-timer { grid-area: timer; }
+#quick-links { grid-area: links; }
+#todo        { grid-area: todo;  }
+
+/* ────────────────────────────────────────────────────────────
+   9.3  Responsive — single-column on narrow viewports
+   Requirements: 5.6
+   ──────────────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  main {
+    grid-template-areas:
+      "timer"
+      "links"
+      "todo";
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   9.4  Widget card containers
+   Requirements: 5.4, 5.5, 7.1, 7.2
+   ──────────────────────────────────────────────────────────── */
+
+/* Greeting lives in <header>; give it a card look too */
+#greeting {
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid var(--border);
+}
+
+/* All <section> elements inside <main> get card styling */
+main > section {
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid var(--border);
+}
+
+/* ────────────────────────────────────────────────────────────
+   9.4  Theme-toggle button (top-right corner of header)
+   ──────────────────────────────────────────────────────────── */
+#theme-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.35rem 0.65rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  z-index: 1;
+}
+
+#theme-toggle:hover {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+
+/* ────────────────────────────────────────────────────────────
+   9.4  Greeting widget
+   ──────────────────────────────────────────────────────────── */
+#greeting-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.15rem;
+}
+
+#current-time {
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: monospace;
+  margin-bottom: 0.1rem;
+}
+
+#current-date {
+  font-size: 0.95rem;
+  color: var(--done-text);
+  margin-bottom: 0.75rem;
+}
+
+.name-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ────────────────────────────────────────────────────────────
+   9.4  Focus timer — prominent display
+   Requirements: 7.1, 7.2
+   ──────────────────────────────────────────────────────────── */
+#timer-display {
+  font-size: 3rem;
+  font-weight: bold;
+  font-family: monospace;
+  margin: 0.5rem 0;
+  letter-spacing: 0.05em;
+}
+
+.timer-controls {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.timer-duration {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ────────────────────────────────────────────────────────────
+   9.4  To-Do widget
+   ──────────────────────────────────────────────────────────── */
+.todo-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.todo-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+#todo-list,
+#links-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#todo-list li,
+#links-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+#todo-list li:last-child,
+#links-list li:last-child {
+  border-bottom: none;
+}
+
+/* Completed task text — strikethrough + muted colour */
+.task-text.done {
+  text-decoration: line-through;
+  color: var(--done-text);
+}
+
+.task-text {
+  flex: 1;
+  word-break: break-word;
+}
+
+/* ────────────────────────────────────────────────────────────
+   9.4  Quick Links widget
+   ──────────────────────────────────────────────────────────── */
+.link-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+#links-list a {
+  color: var(--accent);
+  text-decoration: none;
+  flex: 1;
+}
+
+#links-list a:hover {
+  text-decoration: underline;
+}
+
+/* ────────────────────────────────────────────────────────────
+   9.4  Buttons — consistent accent styling
+   ──────────────────────────────────────────────────────────── */
+button {
+  background: var(--accent);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+  white-space: nowrap;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+button:active {
+  opacity: 0.7;
+}
+
+/* Secondary / destructive buttons (delete) */
+button.btn-danger {
+  background: var(--error);
+}
+
+/* ────────────────────────────────────────────────────────────
+   9.4  Inputs — consistent border styling
+   ──────────────────────────────────────────────────────────── */
+input[type="text"],
+input[type="url"],
+input[type="number"],
+select {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: border-color 0.15s ease;
+}
+
+input[type="text"]:focus,
+input[type="url"]:focus,
+input[type="number"]:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* Expand text inputs to fill available space where appropriate */
+.todo-form input[type="text"],
+.name-form input[type="text"] {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ────────────────────────────────────────────────────────────
+   9.4  Inline feedback messages
+   Requirements: 3.3, 5.4
+   ──────────────────────────────────────────────────────────── */
+.error {
+  color: var(--error);
+  font-size: 0.875rem;
+  margin: 0.25rem 0;
+}
+
+.warning {
+  color: var(--warning-color);
+  font-size: 0.875rem;
+  margin: 0.25rem 0;
+}
+
+/* Hidden utility — widgets toggle display via JS */
+[hidden] {
+  display: none !important;
+}

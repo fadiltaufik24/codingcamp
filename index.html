@@ -1,24 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Latihan revou Coding Css</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Life Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-    <h1>Judul bab, heading</h1>
-    <p>Contoh paragraf 1</p>
-    <p>paragraf 2</p>
-    <hr/>
-    Seuastu disini
-    <br/>
-    mau dienter
-    <!--contoh tulisan hilang-->
+  <header>
+    <button id="theme-toggle" aria-label="Toggle light/dark theme">🌙</button>
 
-    <h1>Judul bab</h1>
-    <h2>bab 1</h2>
-    <h3>bab 1.1</h3>
+    <section id="greeting" aria-label="Greeting widget">
+      <p id="greeting-text"></p>
+      <p id="current-time"></p>
+      <p id="current-date"></p>
+      <div class="name-form">
+        <label for="name-input">Your name:</label>
+        <input type="text" id="name-input" placeholder="Enter your name" />
+        <button id="name-save-btn">Save</button>
+      </div>
+    </section>
+  </header>
 
-    <p></p>
+  <main>
+    <section id="focus-timer" aria-label="Focus timer widget">
+      <h2>Focus Timer</h2>
+      <p id="timer-display">25:00</p>
+      <div class="timer-controls">
+        <button id="timer-start">Start</button>
+        <button id="timer-stop">Stop</button>
+        <button id="timer-reset">Reset</button>
+      </div>
+      <div class="timer-duration">
+        <label for="timer-duration-input">Duration (minutes):</label>
+        <input type="number" id="timer-duration-input" min="1" max="99" value="25" />
+        <button id="timer-duration-save">Set</button>
+        <p class="error" id="timer-duration-error" hidden></p>
+      </div>
+    </section>
+
+    <section id="quick-links" aria-label="Quick links widget">
+      <h2>Quick Links</h2>
+      <div class="link-form">
+        <label for="link-title-input">Title:</label>
+        <input type="text" id="link-title-input" placeholder="Link title" />
+        <label for="link-url-input">URL:</label>
+        <input type="url" id="link-url-input" placeholder="https://example.com" />
+        <button id="link-add-btn">Add Link</button>
+      </div>
+      <ul id="links-list"></ul>
+    </section>
+
+    <section id="todo" aria-label="To-do list widget">
+      <h2>To-Do List</h2>
+      <div class="todo-controls">
+        <label for="todo-sort-select">Sort:</label>
+        <select id="todo-sort-select">
+          <option value="manual">Manual</option>
+          <option value="alpha">A → Z</option>
+          <option value="completed-last">Completed Last</option>
+        </select>
+      </div>
+      <div class="todo-form">
+        <input type="text" id="todo-input" placeholder="Add a new task…" />
+        <button id="todo-add-btn">Add</button>
+      </div>
+      <p id="todo-duplicate-warning" class="warning" hidden>A task with this name already exists.</p>
+      <ul id="todo-list"></ul>
+    </section>
+  </main>
+
+  <script src="js/app.js"></script>
 </body>
 </html>
